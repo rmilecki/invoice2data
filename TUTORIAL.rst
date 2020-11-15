@@ -51,9 +51,8 @@ Let’s look at each field:
 Fields
 ~~~~~~
 
-All the regex ``fields`` you need extracted. Required fields are
-``amount``, ``date``, ``invoice_number``. It’s up to you, if you need
-more fields extracted. Each field can be defined as:
+All the regex ``fields`` you need extracted. Each field can be defined
+as:
 
 -  an **associative array** with ``parser`` specifying parsing method
 -  a single regex with one capturing group
@@ -61,6 +60,52 @@ more fields extracted. Each field can be defined as:
 
 The first method is preferred. It was introduced to make templates
 syntax cleaner and more flexible. It aims to replace old methods.
+
+Required fields are: ``amount``, ``date``, ``invoice_number``.
+
+More fields can be extracted as required. For some common fields
+following names are preferred:
+
+-  Seller:
+
+   -  ``email``: e-mail address
+   -  ``phone``: phone number
+   -  ``vat``: VAT identification number
+
+-  Amounts:
+
+   -  ``amount_untaxed``: invoice amount with taxes excluded
+
+-  Data:
+
+   -  ``lines``: array of invoice items (services, goods, etc.) with standard fields:
+
+      -  ``pos``: item position number
+      -  ``qty``: quantity
+      -  ``name``: item name
+      -  ``unit_net``: unit price net (tax excluded)
+      -  ``unit_gross``: unit price gross (tax included)
+      -  ``total_net``: line total price net (tax excluded)
+      -  ``total_gross``: line total price gross (tax included)
+      -  ``vat_rate``: VAT rate
+      -  ``vat_amount``: VAT amount
+
+   -  ``sale_date``: date of actual sale (may differ from issue date)
+
+   -  ``vat_lines``: array of invoice VAT summary with standard fields:
+
+      -  ``net``: line net amount (tax excluded)
+      -  ``vat_rate``: VAT rate
+      -  ``gross``: line gross amount (tax included)
+
+-  Payment:
+
+   -  ``BIC``: Business Identifier Code
+   -  ``due_date``: date by which invoice has to be paid
+   -  ``IBAN``: International Bank Account Number
+   -  ``payment``: payment method
+
+Extra fields can use custom field names.
 
 Parser ``regex``
 ~~~~~~~~~~~~~~~~
